@@ -1,14 +1,19 @@
 package com.reliabilit.reliabilit.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
-public class Route {
+import java.lang.reflect.Type;
+
+public class Route implements Model {
     @SerializedName("id")
     private String id;
     @SerializedName("attributes")
     private Attributes attributes;
 
-    private Route() {}
+    public Type getTypeToken() {
+        return new TypeToken<Data<Route>>(){}.getType();
+    }
 
     public String getId() {
         return this.id;

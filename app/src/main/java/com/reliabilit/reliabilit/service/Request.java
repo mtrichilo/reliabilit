@@ -1,9 +1,12 @@
 package com.reliabilit.reliabilit.service;
 
 import com.google.gson.Gson;
+import com.reliabilit.reliabilit.model.Data;
+import com.reliabilit.reliabilit.model.Model;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -39,17 +42,22 @@ class Request {
         this.addParameter("api_key", V3_KEY);
     }
 
-    public <T> T makeRequest(String root, Class<T> tClass) throws IOException {
-        URL url = new URL(V3_BASE + root + this.getPath());
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Content-Type", "application/vnd.api+json");
+    public <T extends Model> Data<T> makeRequest(String root, Class<T> tClass) {
+        Data<T> tObject = new Data<>();
+        try {
+            URL url = new URL(V3_BASE + root + this.getPath());
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type", "application/vnd.api+json");
 
-        T tObject = null;
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            InputStreamReader reader = new InputStreamReader(connection.getInputStream());
-            tObject = new Gson().fromJson(reader, tClass);
-            reader.close();
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStreamReader reader = new InputStreamReader(connection.getInputStream());
+                Type type = tClass.newInstance().getTypeToken();
+                tObject = new Gson().fromJson(reader, type);
+                reader.close();
+            }
+        } catch (IOException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
         }
 
         this.reset();
