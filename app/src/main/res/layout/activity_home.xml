@@ -14,7 +14,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:hint="Origin"
+        android:hint="@string/origin"
         android:imeOptions="actionNext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,160 +27,105 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:hint="Destination"
+        android:hint="@string/destination"
         android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/origin" />
 
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/start_date"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@android:color/transparent"
+        android:onClick="showDatePickerDialog"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        tools:text="Start"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/destination" />
 
-    <TextView
-        android:id="@+id/travelTimesLabel"
+    <Button
+        android:id="@+id/end_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Travel Times"
-        android:textSize="24sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@android:color/transparent"
+        android:onClick="showDatePickerDialog"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        tools:text="End"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/destination" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/through"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/start_date"
+        app:layout_constraintStart_toEndOf="@+id/start_date"
+        app:layout_constraintTop_toTopOf="@+id/start_date" />
+
+    <Button
+        android:id="@+id/start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:onClick="showTimePickerDialog"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        tools:text="Start"
+        app:layout_constraintStart_toEndOf="@id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/start_date" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/between"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/start_time"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/message" />
+        app:layout_constraintTop_toTopOf="@+id/start_time" />
 
     <TextView
-        android:id="@+id/actual"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/benchmark"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/travelTimesLabel" />
-
-    <TextView
-        android:id="@+id/benchmark"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/actual"
-        app:layout_constraintTop_toBottomOf="@+id/travelTimesLabel" />
-
-    <TextView
-        android:id="@+id/actualLabel"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Actual (seconds)"
-        android:textSize="16sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/actual"
-        app:layout_constraintStart_toStartOf="@+id/actual"
-        app:layout_constraintTop_toBottomOf="@+id/actual" />
+        android:text="@string/and"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/end_time"
+        app:layout_constraintStart_toEndOf="@+id/start_time"
+        app:layout_constraintTop_toTopOf="@+id/end_time" />
 
-    <TextView
-        android:id="@+id/benchmarkLabel"
+    <Button
+        android:id="@+id/end_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Benchmark (seconds)"
-        android:textSize="16sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/benchmark"
-        app:layout_constraintStart_toStartOf="@+id/benchmark"
-        app:layout_constraintTop_toBottomOf="@+id/benchmark" />
-
-    <TextView
-        android:id="@+id/headwaysLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Wait Time"
-        android:textSize="24sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actualLabel" />
-
-    <TextView
-        android:id="@+id/actualHeadway"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/benchmarkHeadway"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headwaysLabel" />
-
-    <TextView
-        android:id="@+id/benchmarkHeadway"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/actualHeadway"
-        app:layout_constraintTop_toBottomOf="@+id/headwaysLabel" />
-
-    <TextView
-        android:id="@+id/actualHeadwayLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Actual (seconds)"
-        android:textSize="16sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/actualHeadway"
-        app:layout_constraintStart_toStartOf="@+id/actualHeadway"
-        app:layout_constraintTop_toBottomOf="@+id/actualHeadway" />
-
-    <TextView
-        android:id="@+id/benchmarkHeadwayLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Benchmark (seconds)"
-        android:textSize="16sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/benchmarkHeadway"
-        app:layout_constraintStart_toStartOf="@+id/benchmarkHeadway"
-        app:layout_constraintTop_toBottomOf="@+id/benchmarkHeadway" />
+        android:background="@android:color/transparent"
+        android:onClick="showTimePickerDialog"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        tools:text="End"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/end_date" />
 </android.support.constraint.ConstraintLayout>
