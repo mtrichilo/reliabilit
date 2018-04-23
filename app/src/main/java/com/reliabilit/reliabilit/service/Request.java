@@ -1,8 +1,8 @@
 package com.reliabilit.reliabilit.service;
 
 import com.google.gson.Gson;
-import com.reliabilit.reliabilit.model.Data;
-import com.reliabilit.reliabilit.model.Model;
+import com.reliabilit.reliabilit.json.Data;
+import com.reliabilit.reliabilit.json.Json;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,20 +14,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Request {
-    private static final String V3_BASE = "https://api-v3.mbta.com";
-    private static final String V3_KEY = "14e087e22b2049df97d155d77605fccb";
-    private static final String V2_KEY = "-ixsD5PpoE2bxfhE5W9Vtg";
-
+abstract class Request {
+    private String base;
+    private String key;
     private Map<String, String> parameters;
 
-    Request() {
+    Request(String base, String key) {
+        this.base = base;
+        this.key = key;
         this.parameters = new HashMap<>();
-        this.addParameter("api_key", V3_KEY);
+        this.addParameter("api_key", key);
     }
 
-    public Request addParameter(String key, String value) {
-        this.parameters.put(key, value);
+    public Request addParameter(String key, Object value) {
+        this.parameters.put(key, value.toString());
         return this;
     }
 
@@ -37,15 +37,36 @@ class Request {
         return String.join("&", formatted);
     }
 
-    private void reset() {
+    protected void reset() {
         this.parameters = new HashMap<>();
-        this.addParameter("api_key", V3_KEY);
+        this.addParameter("api_key", this.key);
     }
 
-    public <T extends Model> Data<T> makeRequest(String root, Class<T> tClass) {
+    public <T> T makeRequest(String root, Class<T> tClass) {
+        T tObject = null;
+        try {
+            URL url = new URL(this.base + root + this.getPath());
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type", "application/vnd.api+json");
+
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStreamReader reader = new InputStreamReader(connection.getInputStream());
+                tObject = new Gson().fromJson(reader, tClass);
+                reader.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        this.reset();
+        return tObject;
+    }
+
+    public <T extends Json> Data<T> makeDataRequest(String root, Class<T> tClass) {
         Data<T> tObject = new Data<>();
         try {
-            URL url = new URL(V3_BASE + root + this.getPath());
+            URL url = new URL(this.base + root + this.getPath());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/vnd.api+json");

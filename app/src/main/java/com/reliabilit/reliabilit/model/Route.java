@@ -1,18 +1,20 @@
 package com.reliabilit.reliabilit.model;
 
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
+import com.reliabilit.reliabilit.json.RouteJson;
 
-import java.lang.reflect.Type;
-
-public class Route implements Model {
-    @SerializedName("id")
+public class Route {
     private String id;
-    @SerializedName("attributes")
-    private Attributes attributes;
+    private String name;
+    private String color;
 
-    public Type getTypeToken() {
-        return new TypeToken<Data<Route>>(){}.getType();
+    private Route() { }
+
+    public static Route fromJson(RouteJson json) {
+        Route route = new Route();
+        route.id = json.getId();
+        route.name = json.getName();
+        route.color = json.getColor();
+        return route;
     }
 
     public String getId() {
@@ -20,17 +22,10 @@ public class Route implements Model {
     }
 
     public String getName() {
-        return this.attributes.name;
+        return this.name;
     }
 
     public String getColor() {
-        return this.attributes.color;
-    }
-
-    private class Attributes {
-        @SerializedName("long_name")
-        private String name;
-        @SerializedName("color")
-        private String color;
+        return this.color;
     }
 }
