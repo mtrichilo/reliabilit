@@ -3,6 +3,7 @@ package com.reliabilit.reliabilit.home;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -11,17 +12,23 @@ import android.widget.TextView;
 import com.reliabilit.reliabilit.model.Station;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class StationAdapter extends BaseAdapter implements Filterable {
+public class StationAdapter extends BaseAdapter implements Filterable, AdapterView.OnItemClickListener {
     private Context context;
-    private List<Station> stationList;
+    private Collection<Station> stationList;
     private List<Station> filteredList;
+    private int selected;
 
-    public StationAdapter(Context context, List<Station> stationList) {
+    StationAdapter(Context context, Collection<Station> stationList) {
         this.context = context;
         this.stationList = stationList;
-        this.filteredList = stationList;
+        this.filteredList = new ArrayList<>(stationList);
+    }
+
+    public Station getSelected() {
+        return filteredList.get(selected);
     }
 
     @Override
@@ -83,5 +90,10 @@ public class StationAdapter extends BaseAdapter implements Filterable {
                 }
             }
         };
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        this.selected = position;
     }
 }

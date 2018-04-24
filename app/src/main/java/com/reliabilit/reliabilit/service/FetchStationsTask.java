@@ -43,13 +43,15 @@ class FetchStationsTask extends AsyncTask<Runnable, Void, Runnable[]> {
 
                 Station parent = stations.get(parentJson.getId());
                 for (StationJson childJson : parentJson.getChildren()) {
-                    if (childJson.getId().matches("7\\d{4}")) {
+                    if (childJson.getId().matches("7\\d{4}") &&
+                            correctRoute(childJson.getId(), route)) {
                         Station child = Station.fromJson(childJson);
+                        child.setName(parent.getName());
                         parent.addChild(child);
                         if (!children.containsKey(parent.getId())) {
                             children.put(parent.getId(), new Station[2]);
                         }
-                        int childDirection = Integer.parseInt(childJson.getId()) % 2;
+                        int childDirection = (Integer.parseInt(childJson.getId()) + 1) % 2;
                         children.get(parent.getId())[childDirection] = child;
                     }
                 }
@@ -59,9 +61,13 @@ class FetchStationsTask extends AsyncTask<Runnable, Void, Runnable[]> {
 
         for (ShapeJson shape : shapes) {
             Streamer.forEach(shape.getStationIds(), (Station previous, String current) -> {
-                Station child = routeToChildren.get(shape.getRouteId()).get(current)[shape.getDirection()];
-                if (previous != null) {
-                    previous.addNext(child);
+                Station[] children = routeToChildren.get(shape.getRouteId()).get(current);
+                Station child = null;
+                if (children != null) {
+                    child = children[shape.getDirection()];
+                }
+                if (child != null && previous != null) {
+                    previous.addNext(children[shape.getDirection()]);
                 }
                 return child;
             });
@@ -76,5 +82,14 @@ class FetchStationsTask extends AsyncTask<Runnable, Void, Runnable[]> {
         for (Runnable runnable : runnables) {
             runnable.run();
         }
+    }
+
+    private boolean correctRoute(String stationId, Route route) {
+        int id = Integer.parseInt(stationId);
+        return (id < 70037 && route.getId().equals("Orange")) ||
+                (id > 70036 && id < 70061 && route.getId().equals("Blue")) ||
+                (id > 70060 && id < 70105 && route.getId().equals("Red")) ||
+                (id > 70105 && route.getId().matches("Green-.")) ||
+                route.getId().equals("Mattapan");
     }
 }

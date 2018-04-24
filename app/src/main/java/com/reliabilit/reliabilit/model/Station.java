@@ -3,12 +3,13 @@ package com.reliabilit.reliabilit.model;
 import com.reliabilit.reliabilit.json.StationJson;
 import com.reliabilit.reliabilit.util.Streamer;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Station {
+public class Station implements Serializable {
     private String id;
     private String name;
 
@@ -47,6 +48,10 @@ public class Station {
 
     public Collection<Station> getChildren() {
         return this.children;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void addRoute(Route route) {

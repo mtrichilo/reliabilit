@@ -14,8 +14,10 @@
         android:layout_marginTop="8dp"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/travel_times_label"
@@ -26,7 +28,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/travel_time"
         android:textSize="24sp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/message" />
@@ -40,6 +42,7 @@
         android:layout_marginTop="8dp"
         android:textAlignment="center"
         android:textSize="36sp"
+        android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/benchmark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/travel_times_label" />
@@ -67,7 +70,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/actual_label"
         android:textSize="16sp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/actual"
         app:layout_constraintStart_toStartOf="@+id/actual"
         app:layout_constraintTop_toBottomOf="@+id/actual" />
@@ -81,7 +84,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/benchmark_label"
         android:textSize="16sp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/benchmark"
         app:layout_constraintStart_toStartOf="@+id/benchmark"
         app:layout_constraintTop_toBottomOf="@+id/benchmark" />
@@ -95,7 +98,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/wait_time"
         android:textSize="24sp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/actual_label" />
@@ -109,6 +112,7 @@
         android:layout_marginTop="8dp"
         android:textAlignment="center"
         android:textSize="36sp"
+        android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/benchmark_headway"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headways_label" />
@@ -122,6 +126,7 @@
         android:layout_marginTop="8dp"
         android:textAlignment="center"
         android:textSize="36sp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/actual_headway"
         app:layout_constraintTop_toBottomOf="@+id/headways_label" />
@@ -135,7 +140,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/actual_label"
         android:textSize="16sp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/actual_headway"
         app:layout_constraintStart_toStartOf="@+id/actual_headway"
         app:layout_constraintTop_toBottomOf="@+id/actual_headway" />
@@ -149,7 +154,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/benchmark_label"
         android:textSize="16sp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/benchmark_headway"
         app:layout_constraintStart_toStartOf="@+id/benchmark_headway"
         app:layout_constraintTop_toBottomOf="@+id/benchmark_headway" />

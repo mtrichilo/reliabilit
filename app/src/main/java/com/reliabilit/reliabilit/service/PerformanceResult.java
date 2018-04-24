@@ -2,7 +2,9 @@ package com.reliabilit.reliabilit.service;
 
 import com.reliabilit.reliabilit.model.Station;
 
-public class PerformanceResult {
+import java.io.Serializable;
+
+public class PerformanceResult implements Serializable {
     private Station station;
     private int actualHeadway;
     private int benchmarkHeadway;
